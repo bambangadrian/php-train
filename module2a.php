@@ -123,7 +123,8 @@ var_dump($var1 === $var2);
 $number = 15;
 var_dump($number >> 1);
 var_dump($number << 1);
-# TYPE CASTING .
-# Converting one type to another types.
+
+
+
 
 echo '</pre>';
