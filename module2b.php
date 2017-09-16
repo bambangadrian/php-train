@@ -35,26 +35,26 @@ $age = 6.7;
 # 15 <= age < 40, teenager
 # age >= 40, adult
 # Out of condition range.. print invalid age.
-if ($age < 15 and $age >= 0) {
-    echo 'You are still a child';
-} elseif ($age >= 15 and $age < 40) {
-    echo 'You are a teenager';
-} elseif ($age >= 40) {
-    echo 'You are an adult';
-} else {
-    echo 'Invalid age';
-}
+//if ($age < 15 and $age >= 0) {
+//    echo 'You are still a child';
+//} elseif ($age >= 15 and $age < 40) {
+//    echo 'You are a teenager';
+//} elseif ($age >= 40) {
+//    echo 'You are an adult';
+//} else {
+//    echo 'Invalid age';
+//}
 nl();
 $ascii = 'J';
 # Switch..case (numeric and boolean), exact value.
 $asciiNo = ord($ascii);
-switch ($asciiNo) {
-    case $asciiNo <= 90:
-        echo 'Range on Uppercase';
-        break;
-    default:
-        echo 'Range on Lowercase';
-}
+//switch ($asciiNo) {
+//    case $asciiNo <= 90:
+//        echo 'Range on Uppercase';
+//        break;
+//    default:
+//        echo 'Range on Lowercase';
+//}
 nl();
 # LOOPING.
 # for, foreach, while, do..while
@@ -84,11 +84,11 @@ nl();
 //
 //}
 $counter = 5;
-do {
-    echo $counter;
-    nl();
-    $counter++;
-} while ($counter <= 10);
+//do {
+//    echo $counter;
+//    nl();
+//    $counter++;
+//} while ($counter <= 10);
 # Foreach : Only used for array and object
 $arr1 = [
     'bambang',
@@ -96,54 +96,62 @@ $arr1 = [
     'wawan'
 ];
 # $arr1 = [0 => 'bambang', 1 => 'widi', 2 => 'wawan']
-$totalArr = count($arr1);
-for($index=0; $index<$totalArr; $index++){
-    echo 'name on index ' . $index . ' is ' . $arr1[$index];
-    nl();
-}
-nl();
-foreach ($arr1 as $index => $name) {
-    echo 'name on index ' . $index . ' is ' . $name;
-    nl();
-}
+//$totalArr = count($arr1);
+//for($index=0; $index<$totalArr; $index++){
+//    echo 'name on index ' . $index . ' is ' . $arr1[$index];
+//    nl();
+//}
+//nl();
+//foreach ($arr1 as $index => $name) {
+//    echo 'name on index ' . $index . ' is ' . $name;
+//    nl();
+//}
 # FUNCTION.
-function test($args)
-{
-    return $args + 1;
-}
-
-function funcSayHello($name)
-{
-    return 'hi, ' . $name;
-}
+//function test($args)
+//{
+//    return $args + 1;
+//}
+//
+//function funcSayHello($name)
+//{
+//    return 'hi, ' . $name;
+//}
 
 # METHOD.
-function sayHello()
-{
-    echo 'hi';
-}
+//function sayHello()
+//{
+//    echo 'hi';
+//}
+//
+//function abcd($args)
+//{
+//    $args += 1;
+//    var_dump($args);
+//}
 
-function abcd($args)
-{
-    $args += 1;
-    var_dump($args);
-}
-
-$function = test(2);
-var_dump($function);
-abcd(2);
-sayHello();
-nl();
-$message = funcSayHello('Bambang');
-echo $message;
+//$function = test(2);
+//var_dump($function);
+//abcd(2);
+//sayHello();
+//nl();
+//$message = funcSayHello('Bambang');
+//echo $message;
 # METHOD with args (mandatory and optional)
-function sayHello2($name, $additionalMessage)
+function sayHello2($name, $anotherArgs, $additionalMessage = '')
 {
     echo 'Hi, ' . $name;
+    nl();
+    echo $anotherArgs;
     if ($additionalMessage !== '') {
         nl();
         echo $additionalMessage;
     }
 }
+sayHello2('bambang', 'Happy sunday', 'Nice holiday');
+
+
+
+
+
 
 echo '</pre>';
