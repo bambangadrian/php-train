@@ -110,3 +110,59 @@ dump(array_diff($result, ['wawan', 'bambang'], ['adam']));
 $keys = ['test1', 'test2', 'test3'];
 $values = ['data1', 'data2', 'data3'];
 dump(array_combine($keys, $values));
+
+# Standard function.
+# Eg: empty, is_null, is_int, is_numeric.
+# isset, unset
+# Not standard: empty, is_null, is_numeric, isset
+$null = null;
+dump(empty($null)); # $var === null
+dump(empty(0)); # $var === 0
+dump(empty('')); # $var === ''
+dump(empty([])); # count($var) === 0
+dump(empty(0.0)); # $var === 0.0
+dump(empty(['']));
+dump(empty(false)); # $var === false
+
+
+dump(is_null(null)); # => $var === null
+dump(is_null(false));
+dump(is_null([]));
+
+dump(is_int(0)); # => (integer)$var = $var
+dump(is_int(false));
+dump(is_int(null));
+dump(is_int(0.0));
+
+dump(is_numeric(0.0)); # (integer)$var = $var or (float)$var = $var
+dump(is_numeric(false));
+dump(is_numeric([]));
+dump(is_numeric(null));
+dump(is_numeric('0.0'));
+dump(is_numeric(0));
+$var = '0.0';
+dump(((integer)$var === $var or (float)$var === $var));
+
+
+dump(isset($bambang)); #(isset($var) === true and $var !== null)
+dump(isset($result[6]));
+dump(array_key_exists(6, $result));
+
+dump($result);
+unset($result['xxx']);
+dump($result);
+
+# MATH LIBRARY.
+# pow, sin, sqrt, tan, number_format, ceil, floor, log, cos, round.
+dump(pow(2,3));
+dump(sqrt(4)); # pow(4, 1/2);
+dump(pow(8, 3));
+dump(pow(8, -3));
+dump(pow(2, -1));
+dump(round(6.5554, 3));
+dump(number_format(1250000.8982, 2,',', '.'));
+dump(ceil(5.4));
+dump(floor(5.7));
+
+# DATE LIBRARY.
+# date, date_diff, date_create, date_create_from_format, date_add, date_sub
