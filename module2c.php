@@ -54,6 +54,8 @@ function getModifiedText($text, \Closure $closure)
 
 dump(getModifiedText('hello bambang', $funcModifyTextToCapital));
 dump(getModifiedText('Welcome Bambang Adrian SITOMPUL', $funcModifyTextToLower));
+
+
 # ARRAY MANIPULATION.
 ## Filtering.
 $array = ['bambang', 'eko', 'widi'];
@@ -65,6 +67,7 @@ dump(
         }
     )
 );
+
 ## Concat and Merging.
 $array1 = ['bambang', 'index' => 'widi', 'reza'];
 $array2 = ['eko', 'index' => 'adam', 'xxx' => 'wawan', 'reza'];
@@ -90,9 +93,11 @@ dump($result);
 $pushedData = array_push($result, 'bambang');
 dump($pushedData);
 dump($result);
+
 # Accessing.
 dump($result[2]);
 dump(array_values($result));
+
 # Condition.
 dump(is_array($result));
 dump(is_array($funcModifyTextToLower));
@@ -110,3 +115,87 @@ dump(array_diff($result, ['wawan', 'bambang'], ['adam']));
 $keys = ['test1', 'test2', 'test3'];
 $values = ['data1', 'data2', 'data3'];
 dump(array_combine($keys, $values));
+
+# Standard function.
+# Eg: empty, is_null, is_int, is_numeric.
+# isset, unset
+# Not standard: empty, is_null, is_numeric, isset
+$null = null;
+dump(empty($null)); # $var === null
+dump(empty(0)); # $var === 0
+dump(empty('')); # $var === ''
+dump(empty([])); # count($var) === 0
+dump(empty(0.0)); # $var === 0.0
+dump(empty(['']));
+dump(empty(false)); # $var === false
+dump(is_null(null)); # => $var === null
+dump(is_null(false));
+dump(is_null([]));
+dump(is_int(0)); # => (integer)$var = $var
+dump(is_int(false));
+dump(is_int(null));
+dump(is_int(0.0));
+dump(is_numeric(0.0)); # (integer)$var = $var or (float)$var = $var
+dump(is_numeric(false));
+dump(is_numeric([]));
+dump(is_numeric(null));
+dump(is_numeric('0.0'));
+dump(is_numeric(0));
+$var = '0.0';
+dump(((integer)$var === $var or (float)$var === $var));
+dump(isset($bambang)); #(isset($var) === true and $var !== null)
+dump(isset($result[6]));
+dump(array_key_exists(6, $result));
+dump($result);
+unset($result['xxx']);
+dump($result);
+
+# MATH LIBRARY.
+# pow, sin, sqrt, tan, number_format, ceil, floor, log, cos, round.
+dump(pow(2, 3));
+dump(sqrt(4)); # pow(4, 1/2);
+dump(pow(8, 3));
+dump(pow(8, -3));
+dump(pow(2, -1));
+dump(round(6.5554, 3));
+dump(number_format(1250000.8982, 2, ',', '.'));
+dump(ceil(5.4));
+dump(floor(5.7));
+
+# DATE LIBRARY.
+# date, date_diff, date_create, date_create_from_format, date_add, date_sub
+dump(date('Y-m-d H:i:s'));
+//$date = date_create_from_format('Y-m-d', date('Y-m-d'));
+//dump($date);
+$date = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+dump($date);
+dump($date->getTimestamp());
+# Timezone.
+$timezone = new DateTimeZone('Europe/Berlin');
+$dateBerlin = new DateTime('now', $timezone);
+dump($timezone);
+dump($dateBerlin);
+dump($date->getTimezone());
+# Timezone offset.
+dump($date->getTimezone()->getOffset($dateBerlin));
+
+# Manipulate date object with date interval.
+$date2 = DateTime::createFromFormat('Y-m-d H:i:s', $dateBerlin->format('Y-m-d H:i:s'), new DateTimeZone('Asia/Jakarta'));
+dump($date2);
+$dateDiffIntervalObj = $date->diff($date2);
+dump($dateDiffIntervalObj);
+$diffDate = $dateDiffIntervalObj->format('%r %y years %m months %a days, %h hours %i minutes %s seconds');
+dump($diffDate);
+
+# Addition and substraction from date object.
+$dateResult = $date2->add(new \DateInterval('P1Y0DT2H'));
+dump($dateResult);
+dump($dateResult->format('d-m-Y H:i:s'));
+
+$dateResult = $date->sub(new \DateInterval('P2MT8H2M'));
+dump($dateResult);
+dump($dateResult->format('d-m-Y H:i:s'));
+
+
+
+
