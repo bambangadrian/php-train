@@ -195,7 +195,3 @@ dump($dateResult->format('d-m-Y H:i:s'));
 $dateResult = $date->sub(new \DateInterval('P2MT8H2M'));
 dump($dateResult);
 dump($dateResult->format('d-m-Y H:i:s'));
-
-
-
-
