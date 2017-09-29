@@ -9,18 +9,7 @@ function dump($var)
 }
 
 $date = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
-//function CekInput(){
-//    if ($_POST !== '') {
-//        echo 'Isi Dulu Coy Inputan nya';
-//    }
-//    echo $dateDiffIntervalObj = $date->diff($date2);
-//    dump($dateDiffIntervalObj);
-//}
-//$funcInputDate = function ($date2) {
-//    return $date2();
-//};
-//$date2 = $_POST{"name"};
-//$triger = array_key_exists('submit',$_POST));
+
 $message = 'Input Coeg';
 if (array_key_exists('name', $_POST) === true) {
     $timezone = new DateTimeZone('Asia/Jakarta');
