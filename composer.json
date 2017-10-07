@@ -1,0 +1,23 @@
+{
+    "name"             : "bambang.as/php-train",
+    "description"      : "PHP Web Development Training",
+    "type"             : "project",
+    "autoload"         : {
+        "psr-4": {
+            "PhpTrain\\": "oop",
+            "Includes\\": "includes"
+        }
+    },
+    "require-dev"      : {
+        "monolog/monolog": "^1.23",
+        "php"            : ">=5.6.19"
+    },
+    "license"          : "proprietary",
+    "authors"          : [
+        {
+            "name" : "bambangadrian",
+            "email": "bambang.adrian@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
