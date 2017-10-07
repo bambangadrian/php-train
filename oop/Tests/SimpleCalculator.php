@@ -10,7 +10,6 @@
  * @version   GIT: $Id$
  * @link      -
  */
-
-
-
-
+require_once __DIR__ . '/../../vendor/autoload.php';
+$calculator = new \PhpTrain\Exercise\SimpleCalculator();
+echo $calculator->getSubstract(5, 2);
