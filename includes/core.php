@@ -10,7 +10,17 @@
  * @version   GIT: $Id$
  * @link      -
  */
-
-
-
-
+include __DIR__ . '/../src/libs.php';
+if(function_exists('printName') === false){
+    /**
+     * Function to print name.
+     *
+     * @param string $name Name paramter.
+     * 
+     * @return void
+     */
+    function printName($name){
+        echo $name;
+    }
+}
+echo 'test';

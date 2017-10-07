@@ -10,7 +10,7 @@
  * @version   GIT: $Id$
  * @link      -
  */
+# FILE INCLUDE.
+include_once __DIR__ . '/includes/core.php';
 
-
-
-
+printName('bambang');

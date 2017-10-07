@@ -10,7 +10,5 @@
  * @version   GIT: $Id$
  * @link      -
  */
-
-
-
-
+include_once __DIR__ . '/module2e.php';
+printName('adrian');

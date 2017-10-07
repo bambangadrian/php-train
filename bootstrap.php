@@ -10,7 +10,4 @@
  * @version   GIT: $Id$
  * @link      -
  */
-
-
-
-
+echo __DIR__;
