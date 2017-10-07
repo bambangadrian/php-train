@@ -1,0 +1,22 @@
+{
+    "name"             : "mf.setyawan/php-train",
+    "description"      : "PHP WEB Development Training",
+    "type"             : "project",
+    "autoload"         : {
+        "psr-4": {
+            "PhpTrain\\": "oop"
+        }
+    },
+    "require-dev"      : {
+        "monolog/monolog": "^1.23",
+        "php"            : ">=5.6.19"
+    },
+    "license"          : "proprietary",
+    "authors"          : [
+        {
+            "name" : "faisal",
+            "email": "setyawan@invosa.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
