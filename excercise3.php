@@ -6,7 +6,8 @@ if(function_exists('main') === false){
      * @return
      */
     function main(){
-
+        $request = getFormData();
+        render(getResponse($request));
     }
 }
 
@@ -14,31 +15,41 @@ if(function_exists('getFormData') === false){
     /**
      * .
      *
-     * @return
+     * @return array
      */
     function getFormData(){
     return $_POST;
     }
 }
-
 if(function_exists('getResponse') === false){
     /**
      * .
      *
-     * @return
+     * @return array
      */
-    function getResponse(){
-
+    function getResponse(array $request=[]){
+        $response['form']= getForm();
+            if (isFormSubmitted($request)=== true){
+                try {
+                    validateRequest($request);
+                    $dataField = $request['num1'];
+                    $response['result'] = getCalculate($dataField);
+                } catch (\Exception $ex) {
+                    $response['error'] = $ex->getMessage();
+                }
+            }
+            return $response;
     }
 }
 if(function_exists('getForm') === false){
     /**
-     * .
+     * Get form.
      *
      * @return string
      */
-    function getForm(){
-       return'
+    function getForm()
+    {
+       return '
         <form name="test" method="post" action="' . $_SERVER['PHP_SELF'] .'">
             <input type="text" name="num1" /> (<em> + </em>) <input type="text" name="num2" /><br />
             <input type="submit" name="submit" value="submit" />
@@ -53,8 +64,9 @@ if(function_exists('isFormSubmitted') === false){
      *
      * @return
      */
-    function isFormSubmitted(){
-
+    function isFormSubmitted(array $request=[])
+    {
+    return array_key_exists('submit', $request);
     }
 }
 if(function_exists('validateRequest') === false){
@@ -77,6 +89,20 @@ if(function_exists('render') === false){
 
     }
 }
+if(function_exists('getCalculate') === false){
+    /**
+     * .
+     *
+     * @return
+     */
+    function getCalculate($dataField=''){
+        $int1 = $_POST['num1'];
+        $int2 = $_POST['num2'];
+        $hasil = $int1+$int2;
+        return $hasil;
+    }
+}
+main();
 //function dump($var)
 //{
 //    echo '<pre>';

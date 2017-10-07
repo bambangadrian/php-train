@@ -1,0 +1,22 @@
+{
+    "name"             : "prototipe/php-train",
+    "description"      : "Php Php Web Training",
+    "type"             : "project",
+    "autoload"         : {
+        "psr-4": {
+            "PhpTrain\\": "oop"
+        }
+    },
+    "require-dev"      : {
+        "monolog/monolog": "^1.23",
+        "php"            : ">=5.6.19"
+    },
+    "license"          : "proprietary",
+    "authors"          : [
+        {
+            "name" : "ankakaito",
+            "email": "ankakaito880123@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
