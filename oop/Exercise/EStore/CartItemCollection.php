@@ -97,4 +97,16 @@ class CartItemCollection
     {
         return $this->Product;
     }
+
+    /**
+     * Set item quantity.
+     *
+     * @param integer $qty Item quantity parameter.
+     *
+     * @return void
+     */
+    public function setItemQuantity($qty)
+    {
+        $this->Quantity = $qty;
+    }
 }

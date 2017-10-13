@@ -14,59 +14,45 @@ interface HumanInterface
 
     const FEMALE_GENDER = 'female';
 
-    public function getName();
+    public function getBirthDate();
 
     public function getGender();
 
-    public function getBirthDate();
+    public function getName();
 }
 
 abstract class AbstractHuman implements \HumanInterface
 {
 
-    private $Name;
+    protected $Behave;
 
     private $BirthDate;
 
     private $Gender;
 
-    protected $Behave;
+    private $Illness;
+
+    private $Name;
 
     private $SicknessPosibility;
 
-    private $Illness;
-
-    public function setName($name)
+    public function addIllness($illness)
     {
-        $this->Name = $name;
+        $sicknessPosibility = $this->getSicknessPosibility();
+        if (in_array($illness, $sicknessPosibility, true) === false) {
+            throw new \Exception($illness . ' is not availble for ' . $this->getGender());
+        }
+        $this->Illness[] = $illness;
     }
 
-    public function getName()
+    public function getBirthDate()
     {
-        return $this->Name;
+        return $this->BirthDate;
     }
 
     public function getGender()
     {
         return $this->Gender;
-    }
-
-    protected function setGender($gender)
-    {
-        if ($gender !== \HumanInterface::MALE_GENDER and $gender !== \HumanInterface::FEMALE_GENDER) {
-            throw new \Exception('Invalid gender given');
-        }
-        $this->Gender = $gender;
-    }
-
-    protected function setBehave($behave)
-    {
-        $this->Behave = $behave;
-    }
-
-    protected function getBehave()
-    {
-        return $this->Behave;
     }
 
     public function getInfo()
@@ -79,9 +65,9 @@ abstract class AbstractHuman implements \HumanInterface
         return $result . ' has sick: (' . $sickness . ')';
     }
 
-    public function getBirthDate()
+    public function getName()
     {
-        return $this->BirthDate;
+        return $this->Name;
     }
 
     public function setBirthDate($birthDate)
@@ -89,25 +75,39 @@ abstract class AbstractHuman implements \HumanInterface
         $this->BirthDate = $birthDate;
     }
 
-    protected function setSicknessPosibility(array $sickness = [])
-    {
-        $this->SicknessPosibility = $sickness;
-    }
-
-    public function addIllness($illness)
-    {
-        $sicknessPosibility = $this->getSicknessPosibility();
-        if (in_array($illness, $sicknessPosibility, true) === false) {
-            throw new \Exception($illness . ' is not availble for ' . $this->getGender());
-        }
-        $this->Illness[] = $illness;
-    }
-
     public function setIllnes(array $illness = [])
     {
         foreach ($illness as $ill) {
             $this->addIllness($ill);
         }
+    }
+
+    public function setName($name)
+    {
+        $this->Name = $name;
+    }
+
+    protected function getBehave()
+    {
+        return $this->Behave;
+    }
+
+    protected function setBehave($behave)
+    {
+        $this->Behave = $behave;
+    }
+
+    protected function setGender($gender)
+    {
+        if ($gender !== \HumanInterface::MALE_GENDER and $gender !== \HumanInterface::FEMALE_GENDER) {
+            throw new \Exception('Invalid gender given');
+        }
+        $this->Gender = $gender;
+    }
+
+    protected function setSicknessPosibility(array $sickness = [])
+    {
+        $this->SicknessPosibility = $sickness;
     }
 }
 
@@ -134,30 +134,30 @@ class Female extends AbstractHuman
 
     public static $SicknessList = ['breast cancer'];
 
-    public static function getSicknessPosibility()
-    {
-        return self::$SicknessList;
-    }
-
     public function __construct()
     {
         $this->setSicknessPosibility(self::$SicknessList);
         $this->setGender(\HumanInterface::FEMALE_GENDER);
         $this->setBehave('Beauty Mindset');
     }
+
+    public static function getSicknessPosibility()
+    {
+        return self::$SicknessList;
+    }
 }
 
 class EmployeeContract
 {
 
+    private $Company;
+
+    private $ContractLength;
+
     /**
      * @var \HumanInterface $Person
      */
     private $Person;
-
-    private $ContractLength;
-
-    private $Company;
 
     private $Position;
 
@@ -201,4 +201,18 @@ try {
     dump($ex->getMessage());
 }
 
+
+# SOLID CASE: single responsibility, open closed principle, liskov subtitution, interface segregation, dependency inversion.
+# 1. SRP - How to retrieve basic human information with different format (eg: using tables, serialized data, json, or maybe an array format)
+# 2. OCP - Extend the employee class. and show the way to retrieve different salary model calculation without modifying the salary calculation class itself.
+#    and dont forget.. to constraint all the subclass (inherited) model using interface thats a integral part of SOLID
+# 3. LSP - q(x) is provable on object x of type T, then q(y) should be provable for object y of type S, where S is subtype of T
+#    Eg: Makes employee as subclass of human abstract class. and try to format the information output within male, female, and employee class with the same method model
+# 4. ISP - A client should not be forced to implement an interface that it doesn't use (depend on methods they do not use)
+#    Eg: male, female maybe an employee or maybe not, but both of them maybe has their current job and annual income, how to differentiate and structurizing the interface?
+#    and try to make manageable interface to give good api capability that will be used to fetch the work history or experience.
+# 5. DIP - Entities must be depend on the abstractions not on concretions, it states the high level module must not depend on the low level module, but the should
+#    depend on abstractions.
+#    Eg: Create a case; public transport, that will differ the accomodation transport fee between general societies, and students. In this case students must be get 50% discount
+#    and have maximum fee at IDR 5000, general passenger will be charged IDR. 2000/km, and max fee at 20000.
 
