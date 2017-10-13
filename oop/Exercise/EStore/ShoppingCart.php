@@ -90,9 +90,8 @@ class ShoppingCart
     /**
      * Remove item from cart.
      *
-     * @param \PhpTrain\Exercise\EStore\Product $product Product instance parameter.
-     * @param                                   $integer |null                              $quantity Quantity that
-     *                                                   want to be removed from cart.
+     * @param \PhpTrain\Exercise\EStore\Product               $product  Product instance parameter.
+     * @param                                   integer |null $quantity Quantity that want to be removed from cart.
      *
      * @return void
      */
