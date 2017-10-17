@@ -4,10 +4,31 @@
  * Any other use of this code is in violation of copy rights.
  *
  * @package   -
- * @author    Widianto <ankakaito880123@gmail.com>
+ * @author    Bambang Adrian Sitompul <bambang.adrian@gmail.com>
+ * @copyright 2016 Developer
+ * @license   - No License
+ * @version   GIT: $Id$
+ * @link      -
  */
 require_once __DIR__ . '/../../vendor/autoload.php';
-$DataCost = new \PhpTrain\Excercise\EStore\Costumer('CST001', 'Si komang', 'Laki - laki','Bumisani','0123456789');
-echo '[' . $DataCost->getIdCost() . ']' . $DataCost->getNameCost(
-    ) . '- Jenis Kelamin ( Jangan di gambar: ' . $DataCost->getGendre() . ' - Alamat: ' . $DataCost->getAddress(
-    ) . ' - No Contact: ' . $DataCost->getNoContact() . ')';
+echo '<pre>';
+$product = new \PhpTrain\Exercise\EStore\Product('ES001', 'TV LG 32 Inch', 15);
+$product->setPrice(1500000);
+$cart = new \PhpTrain\Exercise\EStore\ShoppingCart();
+$cart->addItem($product, 5);
+$customer = new \PhpTrain\Exercise\EStore\Customer('CUST001', 'Bambang');
+//$cart->setOwner($customer);
+$customer->setShoppingCart($cart);
+$product2 = new \PhpTrain\Exercise\EStore\Product('SN001', 'Taro', 25);
+$product2->setPrice(5000);
+$customerCart = $customer->getShoppingCart();
+$customerCart->addItem($product2, 10);
+$customerCartContent = $customerCart->getCartContents();
+foreach ($customerCartContent as $item) {
+    $itemProduct = $item->getProductInstance();
+    echo $itemProduct->getId() . ' | ' . $itemProduct->getName() . ' | ' . $itemProduct->getPrice(
+        ) . ' | ' . $item->getItemQuantity();
+    echo '<br />';
+}
+$product2->setPrice(6000);
+
