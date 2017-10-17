@@ -17,7 +17,8 @@ class Segitiga{
     {
         //$luas = $nilai1 * $nilai2;
         //return $luas;
-        return ($this->Alas * 0.5)* $this->Lebar;
+        $jariJari = 1/2;
+        return ($this->Alas * $jariJari)* $this->Tinggi;
     }
 
 }
