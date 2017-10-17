@@ -215,4 +215,3 @@ try {
 #    depend on abstractions.
 #    Eg: Create a case; public transport, that will differ the accomodation transport fee between general societies, and students. In this case students must be get 50% discount
 #    and have maximum fee at IDR 5000, general passenger will be charged IDR. 2000/km, and max fee at 20000.
-
