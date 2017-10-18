@@ -27,7 +27,7 @@ class ShoppingCart
     /**
      * Items collection data property on the shopping cart.
      *
-     * @var \PhpTrain\Exercise\EStore\CartItemCollection $Items
+     * @var \PhpTrain\Exercise\EStore\CartItemCollection[] $Items
      */
     private $Items;
 
@@ -45,10 +45,9 @@ class ShoppingCart
      */
     private $SessionId;
 
-    private $MinusQty;
-
     public function __construct($sessionId = null)
     {
+        $this->Items = [];
         if ($sessionId === null) {
             $sessionId = md5(time());
         }
@@ -58,11 +57,14 @@ class ShoppingCart
     /**
      * Add item into cart.
      *
+     * @param \PhpTrain\Exercise\EStore\Product $product  Product instance parameter.
+     * @param integer                           $quantity Quantity of product that want to be included into cart.
+     *
      * @return void
      */
-    public function addItem(\PhpTrain\Exercise\EStore\Product $product, $quantity)
+    public function addItem(\PhpTrain\Exercise\EStore\Product $product, $quantity = 1)
     {
-        $this->Items[] = new  \PhpTrain\Exercise\EStore\CartItemCollection($this, $product, $quantity);
+        $this->modifyItem($product, $quantity);
     }
 
     /**
@@ -70,11 +72,6 @@ class ShoppingCart
      *
      * @return \PhpTrain\Exercise\EStore\CartItemCollection[]
      */
-    public  function setMinusQty()
-    {
-        $Qty = array_key_exists($this->Items, 2);
-            $Qty = $Qty - 1;
-    }
     public function getCartContents()
     {
         return $this->Items;
@@ -91,6 +88,26 @@ class ShoppingCart
     }
 
     /**
+     * Remove item from cart.
+     *
+     * @param \PhpTrain\Exercise\EStore\Product               $product  Product instance parameter.
+     * @param                                   integer |null $quantity Quantity that want to be removed from cart.
+     *
+     * @return void
+     */
+    public function removeItem(\PhpTrain\Exercise\EStore\Product $product, $quantity = null)
+    {
+        if (array_key_exists($product->getId(), $this->Items) === true) {
+            $cartItemCollections = $this->Items[$product->getId()];
+            if ($quantity === null) {
+                $quantity = $cartItemCollections->getItemQuantity();
+            }
+            $quantity = -1 * $quantity;
+            $this->modifyItem($product, $quantity);
+        }
+    }
+
+    /**
      * Set the shopping cart owner.
      *
      * @param \PhpTrain\Exercise\EStore\Customer $customer
@@ -103,4 +120,38 @@ class ShoppingCart
         $this->Owner->setShoppingCart($this);
     }
 
+    /**
+     * Modify item collections on cart.
+     *
+     * @param \PhpTrain\Exercise\EStore\Product $product  Product instance parameter.
+     * @param integer | null                    $quantity Product quantity parameter.
+     *
+     * @return
+     */
+    private function modifyItem(\PhpTrain\Exercise\EStore\Product $product, $quantity = null)
+    {
+        $indexItem = $product->getId();
+        $itemIsExists = array_key_exists($indexItem, $this->Items);
+        if ($itemIsExists === false) {
+            if ($quantity === null) {
+                $quantity = 1;
+            }
+            $this->Items[$indexItem] = new \PhpTrain\Exercise\EStore\CartItemCollection($this, $product, $quantity);
+        } else {
+            $cartItemCollections = $this->Items[$indexItem];
+            $currentQty = $cartItemCollections->getItemQuantity();
+            $currentProductStock = $product->getStock();
+            $endOfQty = $currentQty + $quantity;
+            $cartItemCollections->setItemQuantity($endOfQty);
+            if ($endOfQty < 0) {
+                throw  new \Exception('Invalid quantity amount given');
+            }
+            if ($endOfQty > $currentProductStock) {
+                throw new \Exception('Out of stock');
+            }
+            if ($endOfQty === 0) {
+                unset($this->Items[$indexItem]);
+            }
+        }
+    }
 }
