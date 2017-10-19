@@ -51,6 +51,8 @@ class Product
      */
     private $Stock;
 
+    # Every parameter on construct must be provides all mandatory fields
+
     /**
      * Product constructor.
      */

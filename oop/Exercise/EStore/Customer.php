@@ -4,24 +4,18 @@
  * Any other use of this code is in violation of copy rights.
  *
  * @package   PhpTrain
- * @author    Muhamad Faisal Setiyawan <setyawan@invosa.com>
+ * @author    Bambang Adrian Sitompul <bambang.adrian@gmail.com>
  * @copyright 2016 Developer
  * @license   - No License
  * @version   GIT: $Id$
  * @link      -
  */
 
-namespace PhpTrain\Exercise\EStore;
+namespace PhpTrain\Exercise\Estore;
 
-/**
- * Customer class description.
- *
- * @package    PhpTrain
- * @subpackage Exercise\EStore
- * @author     Muhamad Faisal Setiyawan <setyawan@invosa.com>
- */
 class Customer
 {
+
     /**
      * Customer identifier property.
      *
@@ -37,28 +31,19 @@ class Customer
     private $Name;
 
     /**
-     * Customer address property.
+     * Shopping cart that owned by customer.
      *
-     * @var string $Address
+     * @var \PhpTrain\Exercise\EStore\ShoppingCart $ShoppingCart
      */
-    private $Address;
-
-    /**
-     * Customer email property.
-     *
-     * @var string $Email
-     */
-    private $Email;
+    private $ShoppingCart;
 
     /**
      * Customer constructor.
      */
-    public function __construct($code, $name, $address, $email)
+    public function __construct($code, $name)
     {
         $this->setId($code);
         $this->setName($name);
-        $this->setAddress($address);
-        $this->setEmail($email);
     }
 
     /**
@@ -82,26 +67,18 @@ class Customer
     }
 
     /**
-     * Get customer address.
+     * Get shopping cart instance that owned by customer.
      *
-     * @return string
+     * @return \PhpTrain\Exercise\EStore\ShoppingCart
      */
-    public function getAddress()
+    public function getShoppingCart()
     {
-        return $this->Address;
+        return $this->ShoppingCart;
     }
 
     /**
-     * Get customer Email.
+     * Set customer id.
      *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->Email;
-    }
-
-    /**
      * @param string $Id
      */
     public function setId($Id)
@@ -110,6 +87,8 @@ class Customer
     }
 
     /**
+     * Set customer name.
+     *
      * @param string $Name
      */
     public function setName($Name)
@@ -118,18 +97,14 @@ class Customer
     }
 
     /**
-     * @param string $Address
+     * Assign shoppinc cart to customer.
+     *
+     * @param \PhpTrain\Exercise\EStore\ShoppingCart $cart Shopping cart instance parameter.
+     *
+     * @return void
      */
-    public function setAddress($Address)
+    public function setShoppingCart(\PhpTrain\Exercise\EStore\ShoppingCart $cart)
     {
-        $this->Address = $Address;
-    }
-
-    /**
-     * @param string $Email
-     */
-    public function setEmail($Email)
-    {
-        $this->Email = $Email;
+        $this->ShoppingCart = $cart;
     }
 }
