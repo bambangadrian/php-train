@@ -4,36 +4,71 @@ namespace PhpTrain\Exercise\EStore;
 
 class Transaction
 {
-    private $PaymentType;
+    /**
+     * Shopping cart instance property.
+     *
+     * @var \PhpTrain\Exercise\EStore\ShoppingCart $Cart
+     */
+    private $Cart;
 
-    private $PaymentMethod;
+    /**
+     * Product instance.
+     *
+     * @var \PhpTrain\Exercise\EStore\Product $Product
+     */
+    private $Product;
+
+    /**
+     * Item quantity property.
+     *
+     * @var integer $Quantity
+     */
+    private $Quantity;
+
+    public function __construct(
+        \PhpTrain\Exercise\EStore\ShoppingCart $cart,
+        \PhpTrain\Exercise\EStore\Product $product,
+        $quantity
 
 
-    public function __construct()
+    ) {
+        $this->Cart = $cart;
+        $this->Product = $product;
+        $productStock = $this->Product->getStock();
+        if ($quantity > $productStock) {
+            throw new \Exception('Product quantity greater than available stock');
+        }
+        $this->Quantity = $quantity;
+    }
+    /**
+     * Get shopping cart that own this item collection.
+     *
+     * @return string
+     */
+    public function getOwnedCart()
     {
-        $this->setPaymentType(
-            ['COD', 'transfer']
-        );
-
-        $this->setPaymentMethod(
-            ['cash', 'kredit']
-        );
+        return $this->Cart->getSessionId();
     }
 
     /**
-     * @return mixed
+     * Get product instance property.
+     *
+     * @return \PhpTrain\Exercise\EStore\Product
      */
-    public function getPaymentMethod()
+    public function getProductInstance()
     {
-        return $this->PaymentMethod;
+        return $this->Product;
     }
 
     /**
-     * @return mixed
+     * Set item quantity.
+     *
+     * @param integer $qty Item quantity parameter.
+     *
+     * @return void
      */
-    public function getPaymentType()
+    public function setItemQuantity($qty)
     {
-        return $this->PaymentType;
+        $this->Quantity = $qty;
     }
-
 }

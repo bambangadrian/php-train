@@ -1,4 +1,6 @@
 <?php
+
+namespace PhpTrain\Exercise\EStore;
 /**
  * Code written is strictly used within this program.
  * Any other use of this code is in violation of copy rights.
@@ -38,4 +40,7 @@ try {
     $product2->setPrice(6000);
 } catch (\Exception $ex) {
     echo $ex->getMessage();
+
+
+
 }
