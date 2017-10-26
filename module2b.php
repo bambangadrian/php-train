@@ -116,7 +116,6 @@ $arr1 = [
 //{
 //    return 'hi, ' . $name;
 //}
-
 # METHOD.
 //function sayHello()
 //{
@@ -128,7 +127,6 @@ $arr1 = [
 //    $args += 1;
 //    var_dump($args);
 //}
-
 //$function = test(2);
 //var_dump($function);
 //abcd(2);
@@ -147,11 +145,6 @@ function sayHello2($name, $anotherArgs, $additionalMessage = '')
         echo $additionalMessage;
     }
 }
+
 sayHello2('bambang', 'Happy sunday', 'Nice holiday');
-
-
-
-
-
-
 echo '</pre>';

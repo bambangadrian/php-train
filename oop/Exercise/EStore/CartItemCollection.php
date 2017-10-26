@@ -20,7 +20,7 @@ namespace PhpTrain\Exercise\EStore;
  * @subpackage Exercise\EStore
  * @author     Bambang Adrian Sitompul <bambang.adrian@gmail.com>
  */
-class CartItemCollection
+class CartItemCollection implements \PhpTrain\Exercise\EStore\Contracts\TransactionItemInterface
 {
 
     /**
@@ -85,7 +85,7 @@ class CartItemCollection
      */
     public function getOwnedCart()
     {
-        return $this->Cart->getSessionId();
+        return $this->Cart->getSourceId();
     }
 
     /**
@@ -93,7 +93,7 @@ class CartItemCollection
      *
      * @return \PhpTrain\Exercise\EStore\Product
      */
-    public function getProductInstance()
+    public function getItemInstance()
     {
         return $this->Product;
     }
@@ -108,5 +108,35 @@ class CartItemCollection
     public function setItemQuantity($qty)
     {
         $this->Quantity = $qty;
+    }
+
+    /**
+     * Get cart item name property.
+     *
+     * @return string
+     */
+    public function getItemName()
+    {
+        return $this->Product->getName();
+    }
+
+    /**
+     * Get cart item code property.
+     *
+     * @return string
+     */
+    public function getItemCode()
+    {
+        return $this->Product->getId();
+    }
+
+    /**
+     * Get cart item price property.
+     *
+     * @return float
+     */
+    public function getItemPrice()
+    {
+        return $this->Product->getPrice();
     }
 }

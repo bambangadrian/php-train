@@ -21,7 +21,7 @@ namespace PhpTrain\Exercise\EStore;
  * @subpackage Exercise\EStore
  * @author     Bambang Adrian Sitompul <bambang.adrian@gmail.com>
  */
-class ShoppingCart
+class ShoppingCart implements \PhpTrain\Exercise\EStore\Contracts\TransactionSourceInterface
 {
 
     /**
@@ -72,7 +72,7 @@ class ShoppingCart
      *
      * @return \PhpTrain\Exercise\EStore\CartItemCollection[]
      */
-    public function getCartContents()
+    public function getContents()
     {
         return $this->Items;
     }
@@ -82,7 +82,7 @@ class ShoppingCart
      *
      * @return string
      */
-    public function getSessionId()
+    public function getSourceId()
     {
         return $this->SessionId;
     }

@@ -56,7 +56,10 @@ class Product
     /**
      * Product constructor.
      */
-    public function __construct($code, $name, $stock)
+
+
+
+    public function __construct($code, $name, $stock=0)
     {
         $this->setId($code);
         $this->setName($name);
@@ -102,12 +105,12 @@ class Product
     {
         return $this->Stock;
     }
-
     /**
      * Set product identifier.
      *
      * @param string $Id
      */
+
     public function setId($Id)
     {
         $this->Id = $Id;
@@ -142,4 +145,5 @@ class Product
     {
         $this->Stock = $Stock;
     }
+
 }
