@@ -4,71 +4,95 @@ namespace PhpTrain\Exercise\EStore;
 
 class Transaction
 {
-    /**
-     * Shopping cart instance property.
-     *
-     * @var \PhpTrain\Exercise\EStore\ShoppingCart $Cart
-     */
-    private $Cart;
 
     /**
-     * Product instance.
+     * Transaction date property.
      *
-     * @var \PhpTrain\Exercise\EStore\Product $Product
+     * @var string $Date
      */
-    private $Product;
+    private $Date;
 
     /**
-     * Item quantity property.
+     * Transaction identifier property.
      *
-     * @var integer $Quantity
+     * @var string $Id
      */
-    private $Quantity;
+    private $Id;
+
+    /**
+     * Transaction expired date property.
+     *
+     * @var string $ExpiredDate
+     */
+    private $ExpiredDate;
+
+    /**
+     * Transaction detail data collection property.
+     *
+     * @var \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[] $Details
+     */
+    private $Details;
+
+    /**
+     * Transaction owner property.
+     *
+     * @var \PhpTrain\Exercise\Estore\Contracts\CustomerInterface $Owner
+     */
+    private $Owner;
 
     public function __construct(
-        \PhpTrain\Exercise\EStore\ShoppingCart $cart,
-        \PhpTrain\Exercise\EStore\Product $product,
-        $quantity
-
-
+        \PhpTrain\Exercise\EStore\Contracts\CustomerInterface $customer,
+        \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface $source,
+        $transactionDate
     ) {
-        $this->Cart = $cart;
-        $this->Product = $product;
-        $productStock = $this->Product->getStock();
-        if ($quantity > $productStock) {
-            throw new \Exception('Product quantity greater than available stock');
+        $this->Owner = new \PhpTrain\Exercise\Estore\Customer($customer->getId(), $customer->getName());
+        $sourceItems = $source->getContents();
+        foreach ($sourceItems as $item) {
+            $product = new \PhpTrain\Exercise\Estore\Product($item->getItemCode(), $item->getItemName());
+            $product->setPrice($item->getItemPrice());
+            $this->Details[$item->getItemCode()] = new \PhpTrain\Exercise\Estore\CartItemCollection(
+                $source,
+                $product,
+                $item->getItemQuantity()
+            );
         }
-        $this->Quantity = $quantity;
+        $this->Id = 'TRX-' . $source->getSourceId();
+        $this->Date = $transactionDate;
+        $this->ExpiredDate = '';
     }
+
     /**
-     * Get shopping cart that own this item collection.
+     * Get transaction total data.
+     *
+     * @return float
+     */
+    public function getTotal()
+    {
+        $items = $this->Details;
+        $result = 0;
+        foreach ($items as $item) {
+            $result += $item->getItemPrice() * $item->getItemQuantity();
+        }
+        return $result;
+    }
+
+    /**
+     * Get transaction identifier property.
      *
      * @return string
      */
-    public function getOwnedCart()
+    public function getId()
     {
-        return $this->Cart->getSessionId();
+        return $this->Id;
     }
 
     /**
-     * Get product instance property.
+     * Get transaction detail data collection property.
      *
-     * @return \PhpTrain\Exercise\EStore\Product
+     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[]
      */
-    public function getProductInstance()
+    public function getDetails()
     {
-        return $this->Product;
-    }
-
-    /**
-     * Set item quantity.
-     *
-     * @param integer $qty Item quantity parameter.
-     *
-     * @return void
-     */
-    public function setItemQuantity($qty)
-    {
-        $this->Quantity = $qty;
+        return $this->Details;
     }
 }

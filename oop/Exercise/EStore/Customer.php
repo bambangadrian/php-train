@@ -13,7 +13,7 @@
 
 namespace PhpTrain\Exercise\Estore;
 
-class Customer
+class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
 {
 
     /**
@@ -36,6 +36,13 @@ class Customer
      * @var \PhpTrain\Exercise\EStore\ShoppingCart $ShoppingCart
      */
     private $ShoppingCart;
+
+    /**
+     * Transaction list property.
+     *
+     * @var \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[] $Transactions
+     */
+    private $Transactions;
 
     /**
      * Customer constructor.
@@ -106,5 +113,27 @@ class Customer
     public function setShoppingCart(\PhpTrain\Exercise\EStore\ShoppingCart $cart)
     {
         $this->ShoppingCart = $cart;
+    }
+
+    /**
+     * Checkout active shopping cart that owned by customer.
+     *
+     * @return void
+     */
+    public function doCheckout()
+    {
+        $transaction = new \PhpTrain\Exercise\Estore\Transaction($this, $this->getShoppingCart(), now());
+        $this->Transactions[$transaction->getId()] = $transaction;
+        $this->ShoppingCart = new \PhpTrain\Exercise\Estore\ShoppingCart();
+    }
+
+    /**
+     * Get customer transaction list data property.
+     *
+     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[]
+     */
+    public function getTransactionList()
+    {
+        return $this->Transactions;
     }
 }

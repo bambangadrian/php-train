@@ -1,6 +1,7 @@
 <?php
 
 namespace PhpTrain\Exercise\EStore;
+
 /**
  * Code written is strictly used within this program.
  * Any other use of this code is in violation of copy rights.
@@ -30,17 +31,18 @@ try {
     $customerCart->removeItem($product2, 5);
     $customerCart->removeItem($product2, 5);
     $customerCart->removeItem($product, 1);
-    $customerCartContent = $customerCart->getCartContents();
+    $customerCartContent = $customerCart->getContents();
     foreach ($customerCartContent as $item) {
-        $itemProduct = $item->getProductInstance();
+        $itemProduct = $item->getItemInstance();
         echo $itemProduct->getId() . ' | ' . $itemProduct->getName() . ' | ' . $itemProduct->getPrice(
             ) . ' | ' . $item->getItemQuantity();
         echo '<br />';
     }
     $product2->setPrice(6000);
+    $customer->doCheckout();
+    $transactions = $customer->getTransactionList();
+    $total = $customer->getTransaction($idTransaction)->getTotal();
+    dump($customer->getTransactionOverview($idTransaction)->showAsArray());
 } catch (\Exception $ex) {
     echo $ex->getMessage();
-
-
-
 }

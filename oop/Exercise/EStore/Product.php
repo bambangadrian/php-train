@@ -59,7 +59,7 @@ class Product
 
 
 
-    public function __construct($code, $name, $stock)
+    public function __construct($code, $name, $stock=0)
     {
         $this->setId($code);
         $this->setName($name);
