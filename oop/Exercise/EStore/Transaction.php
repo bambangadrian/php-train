@@ -50,6 +50,7 @@ class Transaction
         foreach ($sourceItems as $item) {
             $product = new \PhpTrain\Exercise\Estore\Product($item->getItemCode(), $item->getItemName());
             $product->setPrice($item->getItemPrice());
+            $product->setStock($item->getItemStock());
             $this->Details[$item->getItemCode()] = new \PhpTrain\Exercise\Estore\CartItemCollection(
                 $source,
                 $product,

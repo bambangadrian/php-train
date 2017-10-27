@@ -44,4 +44,11 @@ interface TransactionItemInterface
      */
     public function getItemPrice();
 
+    /**
+     * Get transaction item stock property.
+     *
+     * @return integer
+     */
+    public function getItemStock();
+
 }
