@@ -123,7 +123,7 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
      */
     public function doCheckout()
     {
-        $transaction = new \PhpTrain\Exercise\Estore\Transaction($this, $this->getShoppingCart(), now());
+        $transaction = new \PhpTrain\Exercise\Estore\Transaction($this, $this->getShoppingCart(), date('Y-m-d H:i:s'));
         $this->Transactions[$transaction->getId()] = $transaction;
         $this->ShoppingCart = new \PhpTrain\Exercise\Estore\ShoppingCart();
     }

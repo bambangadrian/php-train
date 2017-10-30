@@ -139,4 +139,14 @@ class CartItemCollection implements \PhpTrain\Exercise\EStore\Contracts\Transact
     {
         return $this->Product->getPrice();
     }
+
+    /**
+     * Get cart item stock property.
+     *
+     * @return integer
+     */
+    public function getItemStock()
+    {
+        return $this->Product->getStock();
+    }
 }
