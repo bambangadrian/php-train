@@ -3,25 +3,17 @@
  * Code written is strictly used within this program.
  * Any other use of this code is in violation of copy rights.
  *
- * @package
+ * @package   -
  * @author    Bambang Adrian Sitompul <bambang.adrian@gmail.com>
  * @copyright 2016 Developer
  * @license   - No License
  * @version   GIT: $Id$
  * @link      -
  */
+namespace PhpTrain\Exercise\Estore\Contracts;
 
-namespace PhpTrain\Exercise\Estore;
+interface OutputInterface{
+    public function getData();
 
-/**
- * Formatter class description.
- *
- * @package    PhpTrain
- * @subpackage
- * @author     Bambang Adrian Sitompul <bambang.adrian@gmail.com>
- */
-class Formatter
-{
-
+    public function format();
 }
-

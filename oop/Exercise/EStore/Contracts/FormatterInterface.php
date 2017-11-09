@@ -11,7 +11,7 @@
  * @link      -
  */
 
-namespace PhpTrain\Exercise\Estore;
+namespace PhpTrain\Exercise\Estore\Contracts;
 
 /**
  * FormatterInterface class description.
@@ -23,8 +23,13 @@ namespace PhpTrain\Exercise\Estore;
 interface FormatterInterface
 {
 
-    /**
-     * @return  \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface $source
-     */
-    public function getDataSource();
+    public function toArray();
+
+    public function toJson();
+
+    public function toTable();
+
+    public function toPdf();
+
+    public function output();
 }

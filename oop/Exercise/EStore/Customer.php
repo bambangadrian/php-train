@@ -40,7 +40,7 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     /**
      * Transaction list property.
      *
-     * @var \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[] $Transactions
+     * @var \PhpTrain\Exercise\Estore\Transaction[] $Transactions
      */
     private $Transactions;
 
@@ -98,7 +98,7 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     /**
      * @param $idTransaction
      *
-     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface
+     * @return \PhpTrain\Exercise\Estore\Transaction
      */
     public function getTransaction($idTransaction)
     {
@@ -106,12 +106,13 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
         if (array_key_exists($idTransaction, $transactionList) === true) {
             return $transactionList[$idTransaction];
         }
+        return null;
     }
 
     /**
      * Get customer transaction list data property.
      *
-     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[]
+     * @return \PhpTrain\Exercise\Estore\Transaction[]
      */
     public function getTransactionList()
     {
@@ -121,11 +122,12 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     /**
      * @param $idTransaction
      *
-     * @return \PhpTrain\Exercise\Estore\Contracts\FormatterInterface
+     * @return \PhpTrain\Exercise\Estore\Invoice
      */
-    public function getTransactionOverview($idTransaction)
+    public function getInvoice($idTransaction)
     {
-        return $this->getTransaction($idTransaction);
+        $transaction = $this->getTransaction($idTransaction);
+        return new \PhpTrain\Exercise\Estore\Invoice($transaction);
     }
 
     /**

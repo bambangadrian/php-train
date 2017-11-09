@@ -43,7 +43,7 @@ try {
     $transactions = $customer->getTransactionList();
     $idTransaction = 'TRX-' . md5(date('Ymd'));
     $total = $customer->getTransaction($idTransaction)->getTotal();
-    var_dump($customer->getTransactionOverview($idTransaction)->getDataSource());
+    $customer->getInvoice($idTransaction)->format()->toJson()->output();
 } catch (\Exception $ex) {
     echo $ex->getMessage();
 }
