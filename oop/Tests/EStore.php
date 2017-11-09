@@ -41,8 +41,9 @@ try {
     $product2->setPrice(6000);
     $customer->doCheckout();
     $transactions = $customer->getTransactionList();
+    $idTransaction = 'TRX-' . md5(date('Ymd'));
     $total = $customer->getTransaction($idTransaction)->getTotal();
-    dump($customer->getTransactionOverview($idTransaction)->showAsArray());
+    var_dump($customer->getTransactionOverview($idTransaction)->getDataSource());
 } catch (\Exception $ex) {
     echo $ex->getMessage();
 }

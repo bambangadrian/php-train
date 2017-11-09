@@ -49,7 +49,7 @@ class ShoppingCart implements \PhpTrain\Exercise\EStore\Contracts\TransactionSou
     {
         $this->Items = [];
         if ($sessionId === null) {
-            $sessionId = md5(time());
+            $sessionId = md5(date('Ymd'));
         }
         $this->SessionId = $sessionId;
     }

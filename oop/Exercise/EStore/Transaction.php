@@ -13,11 +13,11 @@ class Transaction
     private $Date;
 
     /**
-     * Transaction identifier property.
+     * Transaction detail data collection property.
      *
-     * @var string $Id
+     * @var \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[] $Details
      */
-    private $Id;
+    private $Details;
 
     /**
      * Transaction expired date property.
@@ -27,11 +27,11 @@ class Transaction
     private $ExpiredDate;
 
     /**
-     * Transaction detail data collection property.
+     * Transaction identifier property.
      *
-     * @var \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[] $Details
+     * @var string $Id
      */
-    private $Details;
+    private $Id;
 
     /**
      * Transaction owner property.
@@ -40,6 +40,13 @@ class Transaction
      */
     private $Owner;
 
+    /**
+     * Transaction constructor.
+     *
+     * @param \PhpTrain\Exercise\EStore\Contracts\CustomerInterface          $customer
+     * @param \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface $source
+     * @param                                                                $transactionDate
+     */
     public function __construct(
         \PhpTrain\Exercise\EStore\Contracts\CustomerInterface $customer,
         \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface $source,
@@ -63,18 +70,25 @@ class Transaction
     }
 
     /**
-     * Get transaction total data.
-     *
-     * @return float
+     * @return \PhpTrain\Exercise\Estore\Contracts\FormatterInterface
      */
-    public function getTotal()
+    public function getData()
     {
-        $items = $this->Details;
-        $result = 0;
-        foreach ($items as $item) {
-            $result += $item->getItemPrice() * $item->getItemQuantity();
-        }
-        return $result;
+        return [
+            'Id'     => $this->getId(),
+            'Detail' => $this->getDetails(),
+            'Total'  => $this->getTotal()
+        ];
+    }
+
+    /**
+     * Get transaction detail data collection property.
+     *
+     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[]
+     */
+    public function getDetails()
+    {
+        return $this->Details;
     }
 
     /**
@@ -88,12 +102,17 @@ class Transaction
     }
 
     /**
-     * Get transaction detail data collection property.
+     * Get transaction total data.
      *
-     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionItemInterface[]
+     * @return float
      */
-    public function getDetails()
+    public function getTotal()
     {
-        return $this->Details;
+        $items = $this->Details;
+        $result = 0;
+        foreach ($items as $item) {
+            $result += $item->getItemPrice() * $item->getItemQuantity();
+        }
+        return $result;
     }
 }

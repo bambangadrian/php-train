@@ -54,6 +54,18 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     }
 
     /**
+     * Checkout active shopping cart that owned by customer.
+     *
+     * @return void
+     */
+    public function doCheckout()
+    {
+        $transaction = new \PhpTrain\Exercise\Estore\Transaction($this, $this->getShoppingCart(), date('Y-m-d H:i:s'));
+        $this->Transactions[$transaction->getId()] = $transaction;
+        $this->ShoppingCart = new \PhpTrain\Exercise\Estore\ShoppingCart();
+    }
+
+    /**
      * Get customer identifier.
      *
      * @return string
@@ -84,6 +96,39 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     }
 
     /**
+     * @param $idTransaction
+     *
+     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface
+     */
+    public function getTransaction($idTransaction)
+    {
+        $transactionList = $this->getTransactionList();
+        if (array_key_exists($idTransaction, $transactionList) === true) {
+            return $transactionList[$idTransaction];
+        }
+    }
+
+    /**
+     * Get customer transaction list data property.
+     *
+     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[]
+     */
+    public function getTransactionList()
+    {
+        return $this->Transactions;
+    }
+
+    /**
+     * @param $idTransaction
+     *
+     * @return \PhpTrain\Exercise\Estore\Contracts\FormatterInterface
+     */
+    public function getTransactionOverview($idTransaction)
+    {
+        return $this->getTransaction($idTransaction);
+    }
+
+    /**
      * Set customer id.
      *
      * @param string $Id
@@ -103,7 +148,6 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
         $this->Name = $Name;
     }
 
-
     /**
      * Assign shoppinc cart to customer.
      *
@@ -114,27 +158,5 @@ class Customer implements \PhpTrain\Exercise\EStore\Contracts\CustomerInterface
     public function setShoppingCart(\PhpTrain\Exercise\EStore\ShoppingCart $cart)
     {
         $this->ShoppingCart = $cart;
-    }
-
-    /**
-     * Checkout active shopping cart that owned by customer.
-     *
-     * @return void
-     */
-    public function doCheckout()
-    {
-        $transaction = new \PhpTrain\Exercise\Estore\Transaction($this, $this->getShoppingCart(), date('Y-m-d H:i:s'));
-        $this->Transactions[$transaction->getId()] = $transaction;
-        $this->ShoppingCart = new \PhpTrain\Exercise\Estore\ShoppingCart();
-    }
-
-    /**
-     * Get customer transaction list data property.
-     *
-     * @return \PhpTrain\Exercise\Estore\Contracts\TransactionSourceInterface[]
-     */
-    public function getTransactionList()
-    {
-        return $this->Transactions;
     }
 }
